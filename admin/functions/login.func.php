@@ -1,16 +1,17 @@
 <?php
 
-
-function is_admin($email,$password)
+function is_admin($email, $password)
 {
-    global $db;
+    global $db; 
     $a = [
-        'email'     =>  $email,
-        'password'  =>  sha1($password)
+        'email'     => $email,
+        'password'  => sha1($password)
     ];
+
     $sql = "SELECT * FROM admins WHERE email = :email AND password = :password";
     $req = $db->prepare($sql);
     $req->execute($a);
-    $exist = $req->rowCount($sql);
+
+    $exist = $req->rowCount(); 
     return $exist;
 }
