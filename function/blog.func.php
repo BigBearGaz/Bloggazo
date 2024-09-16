@@ -1,16 +1,20 @@
-<?php
+<?php 
 
+function get_posts(){
 
-function is_admin($email,$password)
-{
     global $db;
-    $a = [
-        'email'     =>  $email,
-        'password'  =>  sha1($password)
-    ];
-    $sql = "SELECT * FROM admins WHERE email = :email AND password = :password";
-    $req = $db->prepare($sql);
-    $req->execute($a);
-    $exist = $req->rowCount($sql);
-    return $exist;
+    
+    $req = $db->query("SELECT * FROM posts WHERE posted='1' ORDER BY date DESC");
+
+    $results=[];
+    while ($row = $req->fetchObject()) {
+        $results[] = $row;
+}   
+
+return $results;
+
+
+
 }
+
+?>
